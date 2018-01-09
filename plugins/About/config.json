@@ -1,0 +1,14 @@
+{
+    "name": "About Emile",
+    "alias": "about",
+    "description": "Read about the application",
+    "pages": [
+        {
+            "qml": "AboutPage.qml",
+            "title": "About the app",
+            "icon": "question_circle",
+            "order": 0,
+            "showInTabBar": true
+        }
+    ]
+}

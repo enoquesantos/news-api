@@ -1,0 +1,98 @@
+/**
+ * Gradle plugin version >= 3.0.1 has has new options to build the APK.
+ * Please, check the follow links to more details:
+ * https://developer.android.com/studio/build/index.html
+ * https://developer.android.com/studio/build/gradle-plugin-3-0-0-migration.html#new_configurations
+ **/
+apply plugin: 'com.android.application'
+
+buildscript {
+    repositories {
+        mavenLocal()
+        google()
+        jcenter()
+    }
+
+    /**
+     * Read about google services plugin:
+     * https://developers.google.com/android/guides/google-services-plugin
+     */
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.google.gms:google-services:3.1.1'
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:+'
+    implementation 'com.google.firebase:firebase-core:11.0.4'
+    implementation 'com.google.firebase:firebase-messaging:11.0.4'
+}
+
+android {
+    /*******************************************************
+     * The following variables:
+     * - androidBuildToolsVersion,
+     * - androidCompileSdkVersion
+     * - qt5AndroidDir - holds the path to qt android files
+     *                   needed to build any Qt application
+     *                   on Android.
+     *
+     * are defined in gradle.properties file. This file is
+     * updated by QtCreator and androiddeployqt tools.
+     * Changing them manually might break the compilation!
+     *******************************************************/
+
+    buildToolsVersion androidBuildToolsVersion
+
+    compileSdkVersion androidCompileSdkVersion.toInteger()
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = [qt5AndroidDir + '/src', 'src', 'java']
+            aidl.srcDirs = [qt5AndroidDir + '/src', 'src', 'aidl']
+            res.srcDirs = [qt5AndroidDir + '/res', 'res']
+            resources.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+       }
+    }
+
+    defaultConfig {
+        applicationId "org.qtproject.example"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true // Enables code shrinking for the release build type.
+            multiDexEnabled true
+        }
+
+        debug {
+            debuggable true
+        }
+    }
+
+    // we need to copy the destination file to a above directory,
+    // where is the Qt deploy process search the apk file to install in device.
+    // This can be fixed in future version of qt support for android.
+    // https://github.com/flutter/flutter/issues/10630
+    applicationVariants.all { variant ->
+        variant.outputs.each  { output ->
+            // outputs file to build/app/outputs/apk/app.apk instead of build/app/outputs/apk/release/app.apk
+            // output.outputFile.name
+            output.outputFileName = "../android-build-${variant.name}.apk"
+        }
+    }
+}
+
+apply plugin: 'com.google.gms.google-services'

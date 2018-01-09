@@ -1,0 +1,48 @@
+{
+    "appName": "News API",
+    "appDescription": "News API is a simple HTTP REST API for searching and retrieving live articles from all over the web.",
+    "organizationName": "News API",
+    "organizationDomain": "org.qtproject.example",
+    "applicationStyle": "Material",
+    "forceEulaAgreement": false,
+    "hasLogin": false,
+    "showEula": false,
+    "showTabButtonText": false,
+    "usesSwipeView": true,
+    "usesDrawer": false,
+    "showDrawerImage": false,
+    "restService": {
+        "authentication" : {
+            "type": "basic",
+            "userName": "",
+            "userPass": ""
+        },
+        "apiKey": "",
+        "baseUrl": "https://newsapi.org/v2/",
+        "baseImagesUrl": ""
+    },
+    "fontSize": {
+        "small": 10,
+        "normal": 12,
+        "large": 16,
+        "extraLarge": 26
+    },
+    "theme": {
+        "linkColor": "#2c576c",
+        "colorAccent": "#f0f0f0",
+        "colorPrimary": "#2c576c",
+        "colorControl": "#2c576c",
+        "statusBarColor": "#2c576c",
+        "colorControlHighlight": "#729846",
+        "textColorPrimary": "#3b3b3b",
+        "menuBackgroundColor": "#2c576c",
+        "pageBackgroundColor": "#f8f8f8",
+        "toolTipBackgroundColor": "#323232"
+    },
+    "events": {
+        "settingsChanged": "settingsChanged",
+        "signedSourcesChanged": "signedSourcesChanged",
+        "downloadFeedImage": "downloadFeedImage",
+        "downloadFeedImageFinished": "downloadFeedImageFinished"
+    }
+}

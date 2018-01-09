@@ -1,0 +1,14 @@
+{
+    "name": "Settings",
+    "alias": "Settings",
+    "description": "The application settings page",
+    "pages": [
+        {
+            "qml": "Settings.qml",
+            "title": "Settings",
+            "icon": "gear",
+            "order": 1,
+            "showInTabBar": true
+        }
+    ]
+}
